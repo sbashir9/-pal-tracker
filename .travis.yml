@@ -24,6 +24,8 @@ jobs:
         - git config --local user.email "travis@example.com"
         - git tag -f $RELEASE_TAG
       deploy:
+        on:
+          branch: my-mvc-wip
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
         file: "build/libs/pal-tracker.jar"
@@ -52,3 +54,5 @@ jobs:
         password: $CF_PASSWORD
         organization: $CF_ORG
         space: review
+        on:
+          branch: my-mvc-wip
