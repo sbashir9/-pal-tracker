@@ -6,26 +6,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TimeEntryRepository {
-    public TimeEntry create(TimeEntry any) {
+public interface TimeEntryRepository {
+    public TimeEntry create(TimeEntry any);
 
-        return null;
-    }
+    public TimeEntry find(long l);
 
-    public TimeEntry find(long l) {
-        return null;
-    }
+    public List<TimeEntry> list();
 
-    public List<TimeEntry> list() {
+    public TimeEntry update(long eq, TimeEntry any);
 
-        return null;
-    }
-
-    public TimeEntry update(long eq, TimeEntry any) {
-
-        return null;
-    }
-
-    public void delete(long l) {
-    }
+    public void delete(long l) ;
 }
