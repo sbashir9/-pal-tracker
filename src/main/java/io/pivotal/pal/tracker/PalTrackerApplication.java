@@ -34,4 +34,5 @@ public class PalTrackerApplication {
                 .modules(new JavaTimeModule())
                 .build();
     }
+
 }
