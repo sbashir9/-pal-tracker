@@ -1,54 +1,55 @@
 package io.pivotal.pal.tracker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-public class InMemoryTimeEntryRepository implements TimeEntryRepository {
-    private HashMap<Long, TimeEntry> timeEntries = new HashMap<>();
+public class InMemoryTimeEntryRepository implements  TimeEntryRepository{
 
-    @Override
+    private HashMap<Long, TimeEntry> timeEntries = new HashMap<Long, TimeEntry> ();
+
     public TimeEntry create(TimeEntry timeEntry) {
+
         Long id = timeEntries.size() + 1L;
-        TimeEntry newTimeEntry = new TimeEntry(
-            id,
-            timeEntry.getProjectId(),
-            timeEntry.getUserId(),
-            timeEntry.getDate(),
-            timeEntry.getHours()
-        );
 
-        timeEntries.put(id, newTimeEntry);
-        return newTimeEntry;
+        timeEntry.setId(id);
+
+        timeEntries.put(id,timeEntry);
+
+        return  timeEntry;
     }
 
-    @Override
-    public TimeEntry find(Long id) {
-        return timeEntries.get(id);
+    public TimeEntry find(long id) {
+
+        TimeEntry foundTimeEntry = timeEntries.get(id);
+
+        return foundTimeEntry;
     }
 
-    @Override
     public List<TimeEntry> list() {
-        return new ArrayList<>(timeEntries.values());
+
+        Collection<TimeEntry> values = timeEntries.values();
+
+        return new ArrayList<TimeEntry>(values);
     }
 
-    @Override
-    public TimeEntry update(Long id, TimeEntry timeEntry) {
-        TimeEntry updatedEntry = new TimeEntry(
-            id,
-            timeEntry.getProjectId(),
-            timeEntry.getUserId(),
-            timeEntry.getDate(),
-            timeEntry.getHours()
-        );
+    public TimeEntry update(long id, TimeEntry timeEntry) {
 
-        timeEntries.replace(id, updatedEntry);
-        return updatedEntry;
+        TimeEntry selected = find(id);
+
+        if (selected != null)
+        {
+            timeEntries.remove(id);
+            return create(timeEntry);
+        }
+        return null;
     }
 
-    @Override
-    public void delete(Long id) {
-        timeEntries.remove(id);
+    public void delete(long id) {
+
+        TimeEntry selected = find(id);
+
+        if (selected != null)
+        {
+            timeEntries.remove(id);
+        }
     }
 }
-
